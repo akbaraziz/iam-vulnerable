@@ -11,15 +11,18 @@ resource "aws_iam_policy" "fn1-privesc3-partial" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = [	      
-        "ec2:DescribeInstances",
-        "ec2:RunInstances"
+        Action = [
+          "ec2:DescribeInstances",
+          "ec2:RunInstances"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "5e8022a6-c0ba-491f-86ae-503814019616"
+  }
 }
 
 resource "aws_iam_policy" "fn1-passrole-star" {
@@ -34,19 +37,22 @@ resource "aws_iam_policy" "fn1-passrole-star" {
     Statement = [
       {
         Action = [
-	      "iam:PassRole"
+          "iam:PassRole"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "76d69066-c0c0-4e91-bf2c-dee2c082936e"
+  }
 }
 
 
 resource "aws_iam_role" "fn1-privesc3-partial-role" {
-  name                = "fn1-privesc3-partial-role"
-  assume_role_policy  = jsonencode({
+  name = "fn1-privesc3-partial-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -59,15 +65,21 @@ resource "aws_iam_role" "fn1-privesc3-partial-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "f71ee499-482c-4ecc-9818-eae641e52edf"
+  }
 }
 
 resource "aws_iam_user" "fn1-privesc3-partial-user" {
   name = "fn1-privesc3-partial-user"
   path = "/"
+  tags = {
+    yor_trace = "14f19c45-9cd6-462f-8862-91f32828af36"
+  }
 }
 
 resource "aws_iam_access_key" "fn1-privesc3-partial-user" {
- user = aws_iam_user.fn1-privesc3-partial-user.name
+  user = aws_iam_user.fn1-privesc3-partial-user.name
 }
 
 

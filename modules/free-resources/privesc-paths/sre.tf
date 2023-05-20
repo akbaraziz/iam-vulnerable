@@ -10,21 +10,24 @@ resource "aws_iam_policy" "privesc-sre-admin-policy" {
     Statement = [
       {
         Action = [
-	      "iam:*",
-        "ec2:*",
-        "s3:*"
+          "iam:*",
+          "ec2:*",
+          "s3:*"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "269564ed-f4cd-4036-abc9-4ecd9fa6a17d"
+  }
 }
 
 
 resource "aws_iam_role" "privesc-sre-role" {
-  name                = "privesc-sre-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-sre-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -32,17 +35,23 @@ resource "aws_iam_role" "privesc-sre-role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          AWS = aws_iam_user.privesc-sre-user.arn          
+          AWS = aws_iam_user.privesc-sre-user.arn
         }
       },
     ]
   })
   managed_policy_arns = [aws_iam_policy.privesc-sre-admin-policy.arn]
+  tags = {
+    yor_trace = "bb01a4d2-b33b-4927-9804-be6ecf096d6b"
+  }
 }
 
 resource "aws_iam_user" "privesc-sre-user" {
   name = "privesc-sre-user"
   path = "/"
+  tags = {
+    yor_trace = "059a58f2-7403-4bc6-8383-dea97894145b"
+  }
 }
 
 resource "aws_iam_access_key" "privesc-sre-user" {
@@ -58,9 +67,9 @@ resource "aws_iam_group_membership" "privesc-sre-group-membership" {
   name = "privesc-sre-group-membership"
 
   users = [
-      aws_iam_user.privesc-sre-user.name
+    aws_iam_user.privesc-sre-user.name
   ]
-  group = aws_iam_group.privesc-sre-group.name   
+  group = aws_iam_group.privesc-sre-group.name
 }
 
 

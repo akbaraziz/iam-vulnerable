@@ -10,16 +10,19 @@ resource "aws_iam_policy" "privesc-AssumeRole-high-priv-policy" {
     Statement = [
       {
         Effect   = "Allow"
-        Action = "*"
+        Action   = "*"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "e4a1e4eb-7520-4fa3-b848-5c1e27c1d969"
+  }
 }
 
 resource "aws_iam_role" "privesc-AssumeRole-starting-role" {
-  name                = "privesc-AssumeRole-starting-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-AssumeRole-starting-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -32,11 +35,14 @@ resource "aws_iam_role" "privesc-AssumeRole-starting-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "6f579d36-346d-4377-9a75-71919d63f133"
+  }
 }
 
 resource "aws_iam_role" "privesc-AssumeRole-intermediate-role" {
-  name                = "privesc-AssumeRole-intermediate-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-AssumeRole-intermediate-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -49,12 +55,15 @@ resource "aws_iam_role" "privesc-AssumeRole-intermediate-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "fab69c17-4160-45c8-ae9c-51ade9529d4b"
+  }
 }
 
 
 resource "aws_iam_role" "privesc-AssumeRole-ending-role" {
-  name                = "privesc-AssumeRole-ending-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-AssumeRole-ending-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -67,6 +76,9 @@ resource "aws_iam_role" "privesc-AssumeRole-ending-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "1dae23bf-9138-4e52-8523-c663ff09aa9f"
+  }
 }
 
 
@@ -74,6 +86,9 @@ resource "aws_iam_role" "privesc-AssumeRole-ending-role" {
 resource "aws_iam_user" "privesc-AssumeRole-start-user" {
   name = "privesc-AssumeRole-start-user"
   path = "/"
+  tags = {
+    yor_trace = "317016fb-6b2b-46de-9cb7-4be191ca3a95"
+  }
 }
 resource "aws_iam_access_key" "privesc-AssumeRole-start-user" {
   user = aws_iam_user.privesc-AssumeRole-start-user.name

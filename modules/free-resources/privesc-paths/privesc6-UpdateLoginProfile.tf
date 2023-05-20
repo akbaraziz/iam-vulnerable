@@ -9,17 +9,20 @@ resource "aws_iam_policy" "privesc6-UpdateLoginProfile" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:UpdateLoginProfile"
+        Action   = "iam:UpdateLoginProfile"
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "e9215f13-31c1-4646-950e-a2cd37e78dbd"
+  }
 }
 
 resource "aws_iam_role" "privesc6-UpdateLoginProfile-role" {
-  name                = "privesc6-UpdateLoginProfile-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc6-UpdateLoginProfile-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -32,16 +35,22 @@ resource "aws_iam_role" "privesc6-UpdateLoginProfile-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "cb6beb07-7207-4509-b6a1-df287529e68f"
+  }
 }
 
 resource "aws_iam_user" "privesc6-UpdateLoginProfile-user" {
   name = "privesc6-UpdateLoginProfile-user"
   path = "/"
+  tags = {
+    yor_trace = "22e93bdd-443f-4a7d-92a2-d3f48fd67a7c"
+  }
 }
 
- resource "aws_iam_access_key" "privesc6-UpdateLoginProfile-user" {
-   user = aws_iam_user.privesc6-UpdateLoginProfile-user.name
- }
+resource "aws_iam_access_key" "privesc6-UpdateLoginProfile-user" {
+  user = aws_iam_user.privesc6-UpdateLoginProfile-user.name
+}
 
 
 resource "aws_iam_user_policy_attachment" "privesc6-UpdateLoginProfile-user-attach-policy" {

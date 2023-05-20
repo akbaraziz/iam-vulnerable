@@ -9,7 +9,7 @@ resource "aws_iam_policy" "privesc-ec2InstanceConnect-policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
+        Effect = "Allow"
         Action = [
           "ec2:DescribeInstances",
           "ec2-instance-connect:SendSSHPublicKey",
@@ -19,13 +19,16 @@ resource "aws_iam_policy" "privesc-ec2InstanceConnect-policy" {
       },
     ]
   })
+  tags = {
+    yor_trace = "377f0b07-54c5-4625-be86-3896fad6b7cf"
+  }
 }
 
 
 
 resource "aws_iam_role" "privesc-ec2InstanceConnect-role" {
-  name                = "privesc-ec2InstanceConnect-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-ec2InstanceConnect-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -38,12 +41,18 @@ resource "aws_iam_role" "privesc-ec2InstanceConnect-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "f7dbbedd-c7be-49e0-87c8-a2765580722d"
+  }
 }
 
 
 resource "aws_iam_user" "privesc-ec2InstanceConnect-user" {
   name = "privesc-ec2InstanceConnect-user"
   path = "/"
+  tags = {
+    yor_trace = "abf1742f-922e-41cb-bc25-7e3ac36c904a"
+  }
 }
 
 resource "aws_iam_access_key" "privesc-ec2InstanceConnect-user" {
@@ -62,5 +71,5 @@ resource "aws_iam_role_policy_attachment" "privesc-ec2InstanceConnect-role-attac
   role       = aws_iam_role.privesc-ec2InstanceConnect-role.name
   policy_arn = aws_iam_policy.privesc-ec2InstanceConnect-policy.arn
 
-}  
+}
 
