@@ -8,22 +8,25 @@ resource "aws_iam_policy" "privesc14-UpdatingAssumeRolePolicy" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      
+
       {
         Action = [
-	      "iam:UpdateAssumeRolePolicy",
-        "sts:AssumeRole"
+          "iam:UpdateAssumeRolePolicy",
+          "sts:AssumeRole"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "65dbca01-0b55-4592-9aad-5fd6a8785781"
+  }
 }
 
 resource "aws_iam_role" "privesc14-UpdatingAssumeRolePolicy-role" {
-  name                = "privesc14-UpdatingAssumeRolePolicy-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc14-UpdatingAssumeRolePolicy-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -36,11 +39,17 @@ resource "aws_iam_role" "privesc14-UpdatingAssumeRolePolicy-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "03283dfc-78d3-46f7-a054-ad06c58f3931"
+  }
 }
 
 resource "aws_iam_user" "privesc14-UpdatingAssumeRolePolicy-user" {
   name = "privesc14-UpdatingAssumeRolePolicy-user"
   path = "/"
+  tags = {
+    yor_trace = "e99ccd91-5d94-4f41-aa4c-078904bdecd7"
+  }
 }
 
 resource "aws_iam_access_key" "privesc14-UpdatingAssumeRolePolicy-user" {

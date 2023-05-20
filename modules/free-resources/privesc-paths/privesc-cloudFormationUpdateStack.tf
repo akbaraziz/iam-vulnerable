@@ -6,24 +6,27 @@ resource "aws_iam_policy" "privesc-CloudFormationUpdateStack" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
-	 "Version": "2012-10-17",
-	 "Statement": [
-	   {
-		 "Sid": "VisualEditor0",
-		 "Effect": "Allow",
-		 "Action": [
-			 "cloudformation:UpdateStack",
-			 "cloudformation:DescribeStacks"
-		 ],
-		 "Resource": "*"
-	  }
-   ]
-})
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+          "cloudformation:UpdateStack",
+          "cloudformation:DescribeStacks"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
+  tags = {
+    yor_trace = "d9834819-09de-490c-9c86-e5aac2560254"
+  }
 }
 
 resource "aws_iam_role" "privesc-CloudFormationUpdateStack-role" {
-  name                = "privesc-CloudFormationUpdateStack-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-CloudFormationUpdateStack-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -36,11 +39,17 @@ resource "aws_iam_role" "privesc-CloudFormationUpdateStack-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "dd814523-53d7-469e-8472-f237703fc070"
+  }
 }
 
 resource "aws_iam_user" "privesc-CloudFormationUpdateStack-user" {
   name = "privesc-CloudFormationUpdateStack-user"
   path = "/"
+  tags = {
+    yor_trace = "ae2b92a1-3978-40f0-baae-703f3fa65b21"
+  }
 }
 
 resource "aws_iam_access_key" "privesc-CloudFormationUpdateStack-user" {

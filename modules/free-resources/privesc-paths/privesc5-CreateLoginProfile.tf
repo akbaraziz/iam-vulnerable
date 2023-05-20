@@ -9,17 +9,20 @@ resource "aws_iam_policy" "privesc5-CreateLoginProfile" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:CreateLoginProfile"
+        Action   = "iam:CreateLoginProfile"
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "961f6af6-e60b-48d8-961a-c2f737956777"
+  }
 }
 
 resource "aws_iam_role" "privesc5-CreateLoginProfile-role" {
-  name                = "privesc5-CreateLoginProfile-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc5-CreateLoginProfile-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -32,16 +35,22 @@ resource "aws_iam_role" "privesc5-CreateLoginProfile-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "26bf9bdd-94a9-4623-b136-41410ce40b59"
+  }
 }
 
 resource "aws_iam_user" "privesc5-CreateLoginProfile-user" {
   name = "privesc5-CreateLoginProfile-user"
   path = "/"
+  tags = {
+    yor_trace = "a3cab615-2daa-49f1-87d3-61600c36a746"
+  }
 }
 
- resource "aws_iam_access_key" "privesc5-CreateLoginProfile-user" {
-   user = aws_iam_user.privesc5-CreateLoginProfile-user.name
- }
+resource "aws_iam_access_key" "privesc5-CreateLoginProfile-user" {
+  user = aws_iam_user.privesc5-CreateLoginProfile-user.name
+}
 
 
 resource "aws_iam_user_policy_attachment" "privesc5-CreateLoginProfile-user-attach-policy" {

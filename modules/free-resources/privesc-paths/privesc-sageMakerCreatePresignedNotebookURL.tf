@@ -9,22 +9,25 @@ resource "aws_iam_policy" "privesc-sageMakerCreatePresignedNotebookURL-policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
+        Effect = "Allow"
         Action = [
           "sagemaker:CreatePresignedNotebookInstanceUrl",
-          "sagemaker:ListNotebookInstances"          
+          "sagemaker:ListNotebookInstances"
         ]
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "60b33ceb-9c29-45ac-9b7a-4d1e49be5def"
+  }
 }
 
 
 
 resource "aws_iam_role" "privesc-sageMakerCreatePresignedNotebookURL-role" {
-  name                = "privesc-sageMakerCreatePresignedNotebookURL-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc-sageMakerCreatePresignedNotebookURL-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -37,12 +40,18 @@ resource "aws_iam_role" "privesc-sageMakerCreatePresignedNotebookURL-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "2ee80665-a882-4d56-a547-1dbee69f8314"
+  }
 }
 
 
 resource "aws_iam_user" "privesc-sageMakerCreatePresignedNotebookURL-user" {
   name = "privesc-sageMakerCreatePresignedNotebookURL-user"
   path = "/"
+  tags = {
+    yor_trace = "41b9c503-1dbd-4e96-9b39-d3859a8974cc"
+  }
 }
 
 resource "aws_iam_access_key" "privesc-sageMakerCreatePresignedNotebookURL-user" {
@@ -61,5 +70,5 @@ resource "aws_iam_role_policy_attachment" "privesc-sageMakerCreatePresignedNoteb
   role       = aws_iam_role.privesc-sageMakerCreatePresignedNotebookURL-role.name
   policy_arn = aws_iam_policy.privesc-sageMakerCreatePresignedNotebookURL-policy.arn
 
-}  
+}
 

@@ -9,17 +9,20 @@ resource "aws_iam_policy" "privesc7-AttachUserPolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:AttachUserPolicy"
+        Action   = "iam:AttachUserPolicy"
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+  tags = {
+    yor_trace = "8a2d2678-4d6f-4ac5-a7b6-b5aae94e5907"
+  }
 }
 
 resource "aws_iam_role" "privesc7-AttachUserPolicy-role" {
-  name                = "privesc7-AttachUserPolicy-role"
-  assume_role_policy  = jsonencode({
+  name = "privesc7-AttachUserPolicy-role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -32,11 +35,17 @@ resource "aws_iam_role" "privesc7-AttachUserPolicy-role" {
       },
     ]
   })
+  tags = {
+    yor_trace = "75eed056-8844-48dd-acb4-81dd8e080bc3"
+  }
 }
 
 resource "aws_iam_user" "privesc7-AttachUserPolicy-user" {
   name = "privesc7-AttachUserPolicy-user"
   path = "/"
+  tags = {
+    yor_trace = "500810e6-6508-423e-8340-e240aed0f54c"
+  }
 }
 
 resource "aws_iam_access_key" "privesc7-AttachUserPolicy-user" {
